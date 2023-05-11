@@ -4,7 +4,8 @@ deamSim -matfile {wildcards.dam} bact/{cont}_{frag}_fr.fa.gz | gzip > bact/{cont
 adptSim -l 140 -artp bact/{cont}_{frag}_dam_{dam}_adp.fa bact/{cont}_{frag}_dam_{dam}.fa.gz
 art_illumina -ss HS25 -amp -na -p -l 140 -c 1 -i bact/{cont}_{frag}_dam_{dam}_adp.fa -o bact/{cont}_{frag}_dam_{dam}_s
 gzip bact/{cont}_{frag}_dam_{dam}_adp.fa fq1 and fq2
-# AdapterRemoval ADD THE COMMAND HERE.
+# AdapterRemoval
+AdapterRemoval --file1 euksim.R1.fq.gz --file2 euksim.R2.fq.gz --basename euksim --trimns --trimqualities --adapter1 AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC --adapter2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA  --minlength 30 --minquality 20 --minadapteroverlap 1 --gzip --threads 2 --collapse
 
 
 #-f : the size frequency file
@@ -37,4 +38,8 @@ bash rename.sh
 
 
 #After merging all the art-* files:
-AdapterRemoval
+AdapterRemoval --file1 euksim.R1.fq.gz --file2 euksim.R2.fq.gz --basename euksim --trimns --trimqualities --adapter1 AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC --adapter2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA  --minlength 30 --minquality 20 --minadapteroverlap 1 --gzip --threads 2 --collapse
+
+
+#Lastly
+cat *.collapsed.gz *.collapsed.truncated.gz *.singleton.truncated.gz *.pair1.truncated.gz *.pair2.truncated.gz > euksim.combined.fq.gz
