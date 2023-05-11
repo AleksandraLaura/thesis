@@ -1,5 +1,19 @@
 #nf-core/eager run
-INSERT THE COMMAND!
+nextflow run nf-core/eager \
+		 -r 2.4.4 \
+		 -profile mjolnir_globe \
+		 --input euksim_eager.tsv \
+		 -c /home/wmj412/data/wmj412.aleks/caribbean_calculus/eager/custom.config \
+		 --fasta /projects/mjolnir1/data/genomes/human/hg38.BROAD.fasta \
+		 --seq_dict /projects/mjolnir1/data/genomes/human/hg38.BROAD.dict \
+		 --fasta_index /projects/mjolnir1/data/genomes/human/hg38.BROAD.fasta.fai \
+		 --bwa_index /projects/mjolnir1/data/genomes/human/ \
+		 -name euksim \
+		 --complexity_filter_poly_g \
+		 --bam_unmapped_type fastq \
+		 --bam_mapping_quality_threshold 20 \
+		 --run_bam_filtering \
+		 -with-tower
 
 #Count false negatives after the eager run:
 zcat euksim.unmapped.fastq.gz| grep _hg38 | wc -l
