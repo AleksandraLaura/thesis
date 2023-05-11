@@ -2,7 +2,7 @@
 INSERT THE COMMAND!
 
 #Count false negatives after the eager run:
-zcat euksim.unmapped.fastq.gz| grep "@M_hg38*" | wc -l
+zcat euksim.unmapped.fastq.gz| grep _hg38 | wc -l
 
 #Count false positives from the eager run:
-samtools view euksim.filtered.bam | grep "M_hg38" -v | wc -l
+samtools view euksim.filtered.bam | grep _hg38 -v | wc -l
