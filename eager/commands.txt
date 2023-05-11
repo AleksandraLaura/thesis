@@ -6,3 +6,7 @@ zcat euksim.unmapped.fastq.gz| grep _hg38 | wc -l
 
 #Count false positives from the eager run:
 samtools view euksim.filtered.bam | grep _hg38 -v | wc -l
+
+
+#Get the counts of the different false positives
+samtools view euksim.filtered.bam | grep hg38 -v | cut -f 1 | cut -d ':' -f 1 | sort | uniq -c
