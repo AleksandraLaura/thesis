@@ -27,6 +27,8 @@ gzip bact/{cont}_{frag}_dam_{dam}_adp.fa fq1 and fq2
 /projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/adptSim -f AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -s AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -artp adptSim-ancient.fasta -l 125 deamSim-ancient.fasta.gz
 
 
+#Then rename the reads within the files for future identification
+bash rename.sh
 
 #paired end illumina simmulator:
 /projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/art_illumina  -c 1 -ss HS25 -p -l 125 -amp -na -o art-ancient.SR -i adptSim-ancient.fasta  
