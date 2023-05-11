@@ -1,0 +1,38 @@
+#General approach (from euka):
+fragSim -n {wildcards.frag} -f size_freq_file -tag _{wildcards.cont} bact/{cont}_seqs.fa.gz | gzip > bact/{cont}_{frag}_fr.fa.gz
+deamSim -matfile {wildcards.dam} bact/{cont}_{frag}_fr.fa.gz | gzip > bact/{cont}_{frag}_dam_{dam}.fa.gz
+adptSim -l 140 -artp bact/{cont}_{frag}_dam_{dam}_adp.fa bact/{cont}_{frag}_dam_{dam}.fa.gz
+art_illumina -ss HS25 -amp -na -p -l 140 -c 1 -i bact/{cont}_{frag}_dam_{dam}_adp.fa -o bact/{cont}_{frag}_dam_{dam}_s
+gzip bact/{cont}_{frag}_dam_{dam}_adp.fa fq1 and fq2
+# AdapterRemoval ADD THE COMMAND HERE.
+
+
+#-f : the size frequency file
+#-fa adapter forward (no neet to specify, we use the default). 
+#-sa adapter reverse (no neet to specify, we use the default). 
+
+
+#Modern:
+/projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/fragSim --case  -n 6802 -o fragSim-modern.fasta.gz -f fragSim-modern.tsv ref_genome.fasta
+
+/projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/adptSim -f AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -s AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA  -artp adptSim-modern.fasta -l 125 fragSim-modern.fasta.gz
+
+
+
+#Ancient:
+/projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/fragSim  -n 63 -o fragSim-ancient.fasta.gz  -f ancient_size_dist.tsv ref_genome.fasta
+
+/projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/deamSim -mapdamage misincorporation-ancient.txt double -o deamSim-ancient.fasta.gz -name fragSim-ancient.fasta.gz
+
+/projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/adptSim -f AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -s AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -artp adptSim-ancient.fasta -l 125 deamSim-ancient.fasta.gz
+
+
+
+#paired end illumina simmulator:
+/projects/mjolnir1/apps/conda/gargammel-1.1.2/bin/art_illumina  -c 1 -ss HS25 -p -l 125 -amp -na -o art-ancient.SR -i adptSim-ancient.fasta  
+
+
+
+
+#After merging all the art-* files:
+AdapterRemoval
