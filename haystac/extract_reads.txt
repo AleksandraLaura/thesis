@@ -1,0 +1,16 @@
+#Find all the non empty log files in the dirichlet_reads output directory
+find . -name "*.log" -type f -size +0 -exec ls -l {} \; > non_empty_dirichlet.txt
+
+#Replace .log with .bam
+sed -i 's/.log/.bam/' non_empty_dirichlet.txt
+
+#Remove everything with and before the first "/"
+sed -i 's/^[^\/]*\///g' non_empty_dirichlet.txt
+
+#Read all the bam files and collect them all in one file
+while read -r line; do samtools view $line; done < non_empty_dirichlet.txt > haystac.results.sam
+
+
+#Or altenative code if one want to seperate the output into seperate sam files
+mkdir results
+while read -r line; do prefix=$(basename "$line" .bam); samtools view "$line" > "results/${prefix}.sam"; done < non_empty_dirichlet.txt
