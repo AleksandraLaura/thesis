@@ -1,12 +1,19 @@
+#Database creation
+haystac database \
+    --mode build \
+    --output ../genomes_euka_ref/databaseforhaystac/ \
+    --sequences-file seqfile_euka.txt  \
+
+
 #Sample prep
 haystac sample \
-    --fastq /home/wmj412/data/wmj412.aleks/birchpitch/dietary/simulation/euksim_paired/euksim.combined.commareplaced.fq.gz \
+    --fastq euksim.combined.fq.gz \
     --output euka_haystac
 
 #Analysis
 haystac analyse \
     --mode abundances \
-    --database ../genomes_euka_ref/databaseforhaystac/ \
+    --database ../reference/databaseforhaystac/ \
     --sample euka_haystac \
     --output euka_haystac_abundances \
     --mapdamage True \
