@@ -1,0 +1,2 @@
+Sample_Name	Library_ID	Lane	Colour_Chemistry	SeqType	Organism	Strandedness	UDG_Treatment	R1	R2	BAM
+euksim	euksim	1	2	PE	NA	single	none	simulation/euksim.R1.fq.gz	simulation/euksim.R2.fq.gz	NA
