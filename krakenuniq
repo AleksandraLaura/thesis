@@ -1,8 +1,0 @@
-#Run krakenuniq
-krakenuniq --db ../genomes_euka_ref  --report-file output.report.krakenuniq.tsv --output output.krakenuniq euksim.fastq.gz
-
-#Get only the classified output
-grep '^C' output.krakenuniq > output.classified.krakenuniq
-
-#Translate
-kraken-translate --db ../genomes_euka_ref output.classified.krakenuniq > output.labels
