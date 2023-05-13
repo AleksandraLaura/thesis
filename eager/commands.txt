@@ -3,11 +3,11 @@ nextflow run nf-core/eager \
 		 -r 2.4.4 \
 		 -profile mjolnir_globe \
 		 --input euksim_eager.tsv \
-		 -c /home/wmj412/data/wmj412.aleks/caribbean_calculus/eager/custom.config \
-		 --fasta /projects/mjolnir1/data/genomes/human/hg38.BROAD.fasta \
-		 --seq_dict /projects/mjolnir1/data/genomes/human/hg38.BROAD.dict \
-		 --fasta_index /projects/mjolnir1/data/genomes/human/hg38.BROAD.fasta.fai \
-		 --bwa_index /projects/mjolnir1/data/genomes/human/ \
+		 -c custom.config \
+		 --fasta /path/to/human/reference/genome/hg38.BROAD.fasta \
+		 --seq_dict /path/to/human/reference/genome/hg38.BROAD.dict \
+		 --fasta_index /path/to/human/reference/genome/hg38.BROAD.fasta.fai \
+		 --bwa_index /path/to/human/reference/genome/ \
 		 -name euksim \
 		 --complexity_filter_poly_g \
 		 --bam_unmapped_type fastq \
@@ -15,12 +15,14 @@ nextflow run nf-core/eager \
 		 --run_bam_filtering \
 		 -with-tower
 
+#Go to the correct directory
+cd results/samtools/filter/
+
 #Count false negatives after the eager run:
 zcat euksim.unmapped.fastq.gz| grep _hg38 | wc -l
 
 #Count false positives from the eager run:
 samtools view euksim.filtered.bam | grep _hg38 -v | wc -l
-
 
 #Get the counts of the different false positives
 samtools view euksim.filtered.bam | grep hg38 -v | cut -f 1 | cut -d ':' -f 1 | sort | uniq -c
