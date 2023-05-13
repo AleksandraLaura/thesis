@@ -1,8 +1,11 @@
+#Database build
+krakenuniq-build --db ../ref --kmer-len 31 --threads 10  --taxids-for-genomes --taxids-for-sequences --jellyfish-bin /path/to/apps/conda/krakenuniq-1.0.3/bin/jellyfish
+
 #Run krakenuniq
-krakenuniq --db ../genomes_euka_ref  --report-file output.report.krakenuniq.tsv --output output.krakenuniq euksim.fastq.gz
+krakenuniq --db ../ref  --report-file output.report.krakenuniq.tsv --output output.krakenuniq euksim.fastq.gz
 
 #Get only the classified output
 grep '^C' output.krakenuniq > output.classified.krakenuniq
 
 #Translate
-kraken-translate --db ../genomes_euka_ref output.classified.krakenuniq > output.labels
+kraken-translate --db ../ref output.classified.krakenuniq > output.labels

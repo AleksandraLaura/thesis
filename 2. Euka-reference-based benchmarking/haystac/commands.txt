@@ -1,20 +1,20 @@
 #Database creation
 haystac database \
     --mode build \
-    --output ../genomes_euka_ref/databaseforhaystac/ \
-    --sequences-file seqfile_euka.txt  \
+    --output ../ref/databaseforhaystac/ \
+    --sequences-file seqfile.txt  \
 
 
 #Sample prep
 haystac sample \
-    --fastq euksim.combined.fq.gz \
-    --output euka_haystac
+    --fastq euksim.fastq.gz \
+    --output output_haystac
 
 #Analysis
 haystac analyse \
     --mode abundances \
-    --database ../reference/databaseforhaystac/ \
-    --sample euka_haystac \
-    --output euka_haystac_abundances \
+    --database ../ref/databaseforhaystac/ \
+    --sample output_haystac \
+    --output output_haystac_abundances \
     --mapdamage True \
 

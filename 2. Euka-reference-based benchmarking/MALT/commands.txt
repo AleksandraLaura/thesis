@@ -1,1 +1,14 @@
+#Database build
+malt-build -J-Xmx1400G -i ../ref/library \
+        --sequenceType DNA \
+        --index ../ref/library \
+        --threads 24  \
+        --acc2taxa /path/to/databases/MALT/nucl_gb.accession2taxid \
 
+#MALT
+malt-run -i euksim.fq.gz -d ../ref/library -m BlastN -o . -a  . -f Tab
+
+#Extract reads via MEGAN > Select genus or species in "Rank" > File > Export > Text (CSV) Format... > readName_to_taxonName & summarized & tab
+
+#Alternatively use this command (although that outputs seperate fasta files and requires more manual selection):
+/path/to/apps/conda/hops-0.35/bin/MaltExtract -a 0.99 --downSampOff -f default -i euksim.rma6 --reads -o extract -p 1 -t Bilateria

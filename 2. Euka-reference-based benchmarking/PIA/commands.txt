@@ -1,1 +1,12 @@
+#Fastq to fasta
+gunzip euksim.fastq.gz
+seqret -sequence euksim.fastq -outseq euksim.fasta
 
+#Blast database build
+makeblastdb -in ../ref/library/merged_db.fa -parse_seqids -taxid_map ../ref/seqid2taxid.map -dbtype nucl -title blastdb
+
+#Blast run
+blastn -db ../ref/library/merged_db.fa -num_threads 1 -query euksim.fasta -out output_blastn  -max_target_seqs 500 -outfmt "6 std staxids"
+
+#PIA
+perl PIA.pl -f euksim.fasta -b output_blastn
