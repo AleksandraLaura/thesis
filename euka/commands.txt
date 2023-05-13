@@ -1,0 +1,5 @@
+#Without damage
+vgan euka -fq1 euksim.fastq.gz --outFrag true -o euka_out --euka_dir euka_dir/
+
+#With damage
+vgan euka -fq1 euksim.fastq.gz --deam5p dhigh5p.prof --deam3p dhigh3p.prof --outFrag true -o euka_dmg_eager --euka_dir euka_dir/
