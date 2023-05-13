@@ -1,0 +1,37 @@
+#Modern reads:
+gargammel-1.1.2/bin/fragSim --case  -n XXX -o fragSim-{species_modern}.fasta.gz -f modern_size_dist.txt ref_{species_modern}.fasta
+gargammel-1.1.2/bin/adptSim -f AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -s AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA  -artp adptSim-{species_modern}.fasta -l 125 fragSim-{species_modern}.fasta.gz
+
+
+#Ancient reads:
+gargammel-1.1.2/bin/fragSim  -n XXX -o fragSim-{species_ancient}.fasta.gz  -f ancient_size_dist.txt ref_{species_ancient}.fasta
+gargammel-1.1.2/bin/deamSim -mapdamage misincorporation-ancient.txt double -o deamSim-{species_ancient}.fasta.gz -name fragSim-{species_ancient}.fasta.gz
+gargammel-1.1.2/bin/adptSim -f AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -s AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -artp adptSim-{species_ancient}.fasta -l 125 deamSim-{species_ancient}.fasta.gz
+
+
+#Then rename the reads within the files for future identification
+bash rename.sh
+
+
+#paired end illumina simmulator:
+gargammel-1.1.2/bin/art_illumina  -c 1 -ss HS25 -p -l 125 -amp -na -o art-$SAMPLE.R -i adptSim-$SAMPLE.modified.fasta  
+
+
+#Merge the reads into one file
+cat art-*.R1.fq > euksim.R1.fq
+cat art-*.R2.fq > euksim.R2.fq
+
+
+#gzip
+gzip euksim.R1.fq
+gzip euksim.R2.fq
+
+
+#For the non-eager analysis: 
+
+#After merging all the art-* files:
+AdapterRemoval --file1 euksim.R1.fq.gz --file2 euksim.R2.fq.gz --basename euksim --trimns --trimqualities --adapter1 AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC --adapter2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA  --minlength 30 --minquality 20 --minadapteroverlap 1 --gzip --threads 2 --collapse
+
+
+#Last step
+cat *.collapsed.gz *.collapsed.truncated.gz *.singleton.truncated.gz *.pair1.truncated.gz *.pair2.truncated.gz > euksim.combined.fq.gz
