@@ -14,3 +14,6 @@ while read -r line; do samtools view $line; done < non_empty_dirichlet.txt > hay
 #Or altenative code if one want to seperate the output into seperate sam files
 mkdir results
 while read -r line; do prefix=$(basename "$line" .bam); samtools view "$line" > "results/${prefix}.sam"; done < non_empty_dirichlet.txt
+
+#To get the species names with the reads and taxID - make sure to be in the "dirichlet_reads/" directory
+lspecies; do samtools view $species/*bam | cut -f 1,3 | while read seq contig; do echo $species $seq $contig >> species_assignment_eager.txt; done; done
