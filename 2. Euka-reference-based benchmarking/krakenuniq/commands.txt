@@ -9,3 +9,6 @@ grep '^C' output.krakenuniq > output.classified.krakenuniq
 
 #Translate
 kraken-translate --db ../ref output.classified.krakenuniq > output.labels
+
+#Get only the last two for species and genus extraction (easier filtering)
+awk -F'\t' '{split($2,a,";"); print $1"\t"a[length(a)-1]";"a[length(a)]}' output.labels > output.shortended.labels
