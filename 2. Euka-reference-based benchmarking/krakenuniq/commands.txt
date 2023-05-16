@@ -10,5 +10,11 @@ grep '^C' output.krakenuniq > output.classified.krakenuniq
 #Translate
 kraken-translate --db ../ref output.classified.krakenuniq > output.labels
 
-#Get only the last two for species and genus extraction (easier filtering)
-awk -F'\t' '{split($2,a,";"); print $1"\t"a[length(a)-1]";"a[length(a)]}' output.labels > output.shortended.labels
+#Get number of True Positive:
+grep ";Target;" euka_eager.labels | grep target_readID | wc -l
+
+False positives:
+grep ";Target;" euka_eager.labels | grep -v target_readID | wc -l
+
+False negatives:
+grep -v ";Target;" euka_eager.labels | grep target_readID | wc -l
