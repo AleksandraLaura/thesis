@@ -6,3 +6,6 @@ vgan euka -fq1 euksim.fastq.gz --deam5p dhigh5p.prof --deam3p dhigh3p.prof --out
 
 #edit the names for easier inspection (this is mostly a note and depends on the fastaID provided when simulating)
 awk 'BEGIN{OFS=FS="\t"} {for(i=2;i<=NF;i++) {split($i,a,":"); $i=a[1]":"a[2]}} 1' euka_FragNames.tsv > euka_FragNames.edited.tsv
+
+#Get a summary
+awk 'BEGIN{OFS="\t"} {delete count; for(i=1; i<=NF; i++) {count[$i]++} print NR; for(key in count) {print key, count[key]}}' euka_FragNames.edited.tsv
