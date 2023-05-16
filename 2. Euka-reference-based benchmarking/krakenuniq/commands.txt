@@ -11,10 +11,10 @@ grep '^C' output.krakenuniq > output.classified.krakenuniq
 kraken-translate --db ../ref output.classified.krakenuniq > output.labels
 
 #Get number of True Positive:
-grep ";Target;" euka_eager.labels | grep target_readID | wc -l
+grep ";Target" euka_eager.labels | grep target_readID | wc -l
 
 False positives:
-grep ";Target;" euka_eager.labels | grep -v target_readID | wc -l
+grep ";Target" euka_eager.labels | grep -v target_readID | wc -l
 
 False negatives:
-grep -v ";Target;" euka_eager.labels | grep target_readID | wc -l
+grep -v ";Target" euka_eager.labels | grep target_readID | wc -l
