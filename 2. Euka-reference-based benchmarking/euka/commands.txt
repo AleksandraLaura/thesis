@@ -3,3 +3,6 @@ vgan euka -fq1 euksim.fastq.gz --outFrag true -o euka_out --euka_dir euka_dir/
 
 #With damage
 vgan euka -fq1 euksim.fastq.gz --deam5p dhigh5p.prof --deam3p dhigh3p.prof --outFrag true -o euka_dmg_eager --euka_dir euka_dir/
+
+#edit the names for easier inspection (this is mostly a note and depends on the fastaID provided when simulating)
+awk 'BEGIN{OFS=FS="\t"} {for(i=2;i<=NF;i++) {split($i,a,":"); $i=a[1]":"a[2]}} 1' euka_FragNames.tsv > euka_FragNames.edited.tsv
