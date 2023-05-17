@@ -16,8 +16,8 @@ malt-run -i euksim.fq.gz -d ../ref/library -m BlastN -o . -a  . -f Tab
 #Count the number of True Positives
 grep target_readID euksim.combined-genera.txt | grep '"Target"' | wc -l
 
-False positives:
+#False positives:
 grep -v target_readID euksim.combined-genera.txt | grep '"Target"' | wc -l
 
-False negatives:
+#False negatives:
 grep target_readID euksim.combined-genera.txt | grep -v '"Target"' | wc -l
