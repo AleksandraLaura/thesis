@@ -10,3 +10,12 @@ blastn -db ../ref/library/merged_db.fa -num_threads 1 -query euksim.fasta -out o
 
 #PIA
 perl PIA.pl -f euksim.fasta -b output_blastn
+
+#Count the number of True Positives
+grep target_readID euksim.Summary_Reads.txt | grep 'Target' | wc -l
+
+#False positives:
+grep -v target_readID euksim.Summary_Reads.txt | grep 'Target' | wc -l
+
+#False negatives:
+grep target_readID euksim.Summary_Reads.txt | grep -v 'Target' | wc -l
