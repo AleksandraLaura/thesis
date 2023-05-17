@@ -13,8 +13,8 @@ kraken-translate --db ../ref output.classified.krakenuniq > output.labels
 #Get number of True Positive:
 grep ";Target" output.labels | grep target_readID | wc -l
 
-False positives:
+#False positives:
 grep ";Target" output.labels | grep -v target_readID | wc -l
 
-False negatives:
+#False negatives:
 grep -v ";Target" output.labels | grep target_readID | wc -l
