@@ -19,3 +19,6 @@ grep -v target_readID euksim.Summary_Reads.txt | grep 'Target' | wc -l
 
 #False negatives:
 grep target_readID euksim.Summary_Reads.txt | grep -v 'Target' | wc -l
+
+#Get off-targets
+grep -v Anatidae euksim.Summary_Reads.txt | grep -v Bovidae | grep -v Cervidae |  grep -v Felidae | grep -v Suina | grep -v Pyralidae | grep -v Hominidae | grep -v Canidae | grep -v Galliformes | grep -v Equidae | grep -v Pecora | grep -v Equus | grep -v Cervus | grep -v Homininae | grep -v Felis | grep -v Sus | grep -v Ephestia | grep -v Homo | grep -v Ovis | grep -v Canis | grep -v Anas | grep -v Bos | grep -v Gallus | grep -v Cervinae | grep -v Bovinae | grep -v Suidae | grep -v Anatinae | grep -v Felinae | awk -F'\t' '!/^#/ {split($1, arr, ":");  print arr[1], $(NF)}' | cut -f2 | sort | uniq -c | sort -rn
