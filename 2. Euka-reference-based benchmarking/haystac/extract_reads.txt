@@ -28,4 +28,4 @@ grep -v target_readID species_assignment.txt | grep Target | wc -l
 grep target_readID species_assignment.txt | grep -v Target | wc -l
 
 #Off targets:
-grep -v Anatidae haystac_plain_groups.tsv | grep -v Bovidae | grep -v Cervidae |  grep -v Felidae | grep -v Suina | grep -v Pyralidae | grep -v Hominidae | grep -v Canidae | grep -v Galliformes | grep -v Equidae | grep -v Pecora | grep -v Equus | grep -v Cervus | grep -v Homininae
+grep -v Anatidae haystac_plain_groups.tsv | grep -v Bovidae | grep -v Cervidae |  grep -v Felidae | grep -v Suina | grep -v Pyralidae | grep -v Hominidae | grep -v Canidae | grep -v Galliformes | grep -v Equidae | grep -v Pecora | grep -v Equus | grep -v Cervus | grep -v Homininae | grep -v Galloanserae | grep -v Cephalophus
