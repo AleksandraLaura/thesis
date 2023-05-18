@@ -14,10 +14,13 @@ malt-run -i euksim.fq.gz -d ../ref/library -m BlastN -o . -a  . -f Tab
 /path/to/apps/conda/hops-0.35/bin/MaltExtract -a 0.99 --downSampOff -f default -i euksim.rma6 --reads -o extract -p 1 -t Bilateria
 
 #Count the number of True Positives
-grep target_readID euksim.combined-genera.txt | grep '"Target"' | wc -l
+grep target_readID euksim.$RANK.txt | grep '"Target"' | wc -l
 
 #False positives:
-grep -v target_readID euksim.combined-genera.txt | grep '"Target"' | wc -l
+grep -v target_readID euksim.$RANK.txt | grep '"Target"' | wc -l
 
 #False negatives:
-grep target_readID euksim.combined-genera.txt | grep -v '"Target"' | wc -l
+grep target_readID euksim.$RANK.txt | grep -v '"Target"' | wc -l
+
+#Get a summary of all off-target hits:
+grep -v Cervidae euksim.$RANK.txt | grep -v Felidae | grep -v Suina | grep -v Pyralidae | grep -v Hominidae | grep -v Bovidae | grep -v Canidae | grep -v Anatidae | grep -v Bovidae | grep -v Galliformes | grep -v Equidae | grep -v Canidae |  awk -F'\t' '{split($1, arr, ":");  print arr[1], $(NF)}' | cut -f2 | sort | uniq -c | sort -rn
