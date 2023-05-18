@@ -21,8 +21,11 @@ lspecies; do samtools view $species/*bam | cut -f 1,3 | while read seq contig; d
 #Count the number of True Positives
 grep target_readID species_assignment.txt | grep Target | wc -l
 
-False positives:
+#False positives:
 grep -v target_readID species_assignment.txt | grep Target | wc -l
 
-False negatives:
+#False negatives:
 grep target_readID species_assignment.txt | grep -v Target | wc -l
+
+#Off targets:
+grep -v Anatidae haystac_plain_groups.tsv | grep -v Bovidae | grep -v Cervidae |  grep -v Felidae | grep -v Suina | grep -v Pyralidae | grep -v Hominidae | grep -v Canidae | grep -v Galliformes | grep -v Equidae | grep -v Pecora | grep -v Equus | grep -v Cervus | grep -v Homininae
