@@ -18,3 +18,6 @@ grep ";Target" output.labels | grep -v target_readID | wc -l
 
 #False negatives:
 grep -v ";Target" output.labels | grep target_readID | wc -l
+
+#Summariing script to see the distribution of the False negatives
+grep target_readID euka_plain.labels | grep -v ";Target" | awk -F'\t' '{split($1, arr, ":"); split($2, arr2, ";"); print arr[1], arr2[length(arr2)]}'| cut -f2 | sort | uniq -c | sort -rn
