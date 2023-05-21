@@ -1,0 +1,2 @@
+#Command to download all the desired fasta sequences from NCBI given a list of accession numbers / assembly ID's - Where $ASSEMBLY is every single one of th assembly  ID’s:
+ncbi-genome-download -A $ASSEMBLY -F fasta all
