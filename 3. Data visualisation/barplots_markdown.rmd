@@ -1,0 +1,43 @@
+---
+title: "Thesis_plotting"
+output: html_document
+date: "2023-05-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Load in the libraries
+library(dplyr)
+library(reshape2)
+library(tidyverse)
+library(ggplot2)
+```
+
+#PLOTTING
+
+```{r}
+#Summarize which reads mapped to what
+Summary_table <- read.delim("../SumResults.txt")
+```
+
+
+```{r}
+Summary_table <- pivot_longer(Summary_table, cols = c("TP", "FP", "FN"), names_to = "Value", values_to = "Sum")
+```
+
+
+```{r}
+# Plotting
+ggplot(Summary_table, aes(x = Classifier, y = Sum, fill = Value)) + 
+  geom_bar(position = "dodge", stat = "identity") + 
+  labs(y = "", x = "", fill = "Variable") + 
+  facet_grid(rows = vars(Level), cols = vars(Filtering)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 50, vjust = 1, hjust=1))
+
+```
+
+
