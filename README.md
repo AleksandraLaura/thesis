@@ -1,7 +1,5 @@
-# Title of some sort
+# Aleksandra Laura Pach MSc thesis project in bioinformatics
 
-This is a github repository for all the code used in my thesis. Cheers!
+All the code can be seen within the respective directories (in order). The actual commands used are within ´commands.txt´ files under each relevant directory. All other essential files are provided as well within their respective directories. 
 
-```
-Some code here
-```
+Cheers!
