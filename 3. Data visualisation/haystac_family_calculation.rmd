@@ -1,0 +1,31 @@
+### Haystac family calculation
+
+```{r}
+#Read in files
+euka_db_info <- read.delim("../haystac/euka_db_info.txt", header = F)
+
+haystac_output_eager <- read.delim("../haystac/species_assignment_eager.txt", header = F, sep = " ")
+haystac_output_plain <- read.delim("../haystac/species_assignment_plain.txt", header = F, sep = " ")
+```
+
+```{r}
+#Inner join for the haystac output (for both) 
+haystac_output_eager <- inner_join(haystac_output_eager, euka_db_info, by=c('V3' = 'V2', 'V1' = 'V3'))
+haystac_output_plain <- inner_join(haystac_output_plain, euka_db_info, by=c('V3' = 'V2', 'V1' = 'V3'))
+
+# Save the table to grep the reads like the others
+haystac_output_eager <- haystac_output_eager[, c("V2", "V1.y")]
+haystac_output_plain <- haystac_output_plain[, c("V2", "V1.y")]
+```
+
+
+```{r}
+# Specify the file path
+file_path_eager <- "../haystac/haystac_eager_groups.tsv"  
+file_path_plain <- "../haystac/haystac_plain_groups.tsv"
+
+# Save the columns to a tab-separated file
+write.table(haystac_output_eager, file = file_path_eager, sep = "\t", quote = FALSE, row.names = FALSE)
+write.table(haystac_output_plain, file = file_path_plain, sep = "\t", quote = FALSE, row.names = FALSE)
+
+```
