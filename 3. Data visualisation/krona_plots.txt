@@ -1,0 +1,3 @@
+#Code to make the krona plots for the taxa distribution in the databases
+/apps/bin/kreport2krona.py -r Database.kreport.txt -o Database.krona.txt
+ktImportText Database.krona.txt -o Database.krona.html
