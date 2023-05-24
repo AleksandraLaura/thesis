@@ -1,0 +1,9 @@
+#seq2taxID.map = GenomeAccession (or any unique identifier) TAB Taxid
+#classifier.counts = Taxid TAB Counts
+
+#Commands to get the kraken report needed for plotting
+cut -f 1 seq2taxID.map | while read line; do echo '>'$line; echo ACGT; done > Database.fasta
+centrifuge-build --conversion-table seq2taxID.map --taxonomy-tree nodes.dmp --name-table names.dmp Database.fasta Database
+centrifuge-kreport -x Database --is-count-table classifier.counts > classifier.kreport.txt
+
+#Input the kreport file to pavian: https://fbreitwieser.shinyapps.io/pavian/ 
