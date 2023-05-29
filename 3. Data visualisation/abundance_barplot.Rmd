@@ -1,0 +1,44 @@
+```{r}
+#Load in the libraries
+library(dplyr)
+library(reshape2)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+#Plot abundance estimates
+euka_abundance <- read.delim("../euka/adundance_all.txt")
+euka_abundance_long <- pivot_longer(euka_abundance, cols = c("proportion_estimate", "real_proportion"), names_to = "Value", values_to = "Sum")
+```
+
+```{r}
+# Identify rows where "Value" contains "real_proportion"
+rows_to_update <- grepl("real_proportion", euka_abundance_long$Value)
+
+# Set "X95higher_bound" and "X95lower_bound" to 0 for the selected rows
+euka_abundance_long$X95higher_bound[rows_to_update] <- NA
+euka_abundance_long$X95lower_bound[rows_to_update] <- NA
+```
+
+
+
+```{r}
+# Most basic error bar
+euka_abundance_plot <- ggplot(euka_abundance_long, aes(x=Taxon, y=Sum, fill = Value)) +
+    geom_bar(position = "dodge", stat="identity", alpha=0.7) +
+    geom_errorbar(aes(x=Taxon, ymin=X95lower_bound, ymax=X95higher_bound), colour="orange3", alpha=0.9, size=0.8, position=position_dodge(width=1), width = 0.6) +
+  labs(y = "abundance", x = "", fill = "") + 
+  facet_grid(rows = vars(Damage), cols = vars(pre_processing)) +
+  scale_fill_manual(values=c("skyblue4", "skyblue")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 50, vjust = 1, hjust=1)) +
+  ggtitle("abundance estimates euka") +
+  theme(plot.title = element_text(hjust = 0.5))
+  
+```
+
+```{r}
+# Save the combined plot to a file
+ggsave("euka_abundance_plot.jpg", euka_abundance_plot, width = 10, height = 6)
+```
