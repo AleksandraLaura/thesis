@@ -1,8 +1,8 @@
 #Command to download all the desired fasta sequences from NCBI given a list of accession numbers / assembly ID's - Where $ASSEMBLY is every single one of th assembly  ID’s:
 ncbi-genome-download -A $ASSEMBLY -F fasta all
 
-#The composition of the database can be seen in supplementary table XXX
-#https://docs.google.com/spreadsheets/d/1jOf-YgB9cYcwUWn8A0Yi6DtkaF2s6c2sUvge6qtjh6c/edit?usp=sharing
+#The composition of the database can be seen in T5
+#https://docs.google.com/spreadsheets/d/1jOf-YgB9cYcwUWn8A0Yi6DtkaF2s6c2sUvge6qtjh6c/edit#gid=2016753875
 #The NCBI filter looked like this:
 #("Viridiplantae"[Organism] AND ("latest refseq"[filter] AND "chromosome level"[filter] AND "representative genome"[filter])) OR ("Metazoa"[Organism] AND ("latest refseq"[filter] AND "chromosome level"[filter] AND "representative genome"[filter]) OR ("Fungi"[Organism] AND ("latest refseq"[filter] AND "chromosome level"[filter] AND "representative genome"[filter])))
 
